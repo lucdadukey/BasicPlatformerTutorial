@@ -185,3 +185,36 @@ If you now run the code you should see squares that match what is written in the
 
 ---
 ## Handling User Input
+Our game right now is pretty boring as there is nothing to do, only stare at the beautifully arranged squares that should now populate you screen. To fix this we need to add a way to listen for keyboard input and move the player based on which key is pressed. At the top of the Javascript file write the line:
+```javascript
+let keysDown = {};
+```
+This is an empty **object** which will hold the keys currently pressed. If you are wondering why we need to store current keys down it is because this way allows multiple keys to be pressed at once.\
+To listen for key presses, and then store that key press in the *keysDown* variable we will use an **eventListener**:
+```javascript
+addEventListener("keydown", function(event){
+  keysDown[event.keyCode] = true;
+});
+```
+This function executes whenever the user presses a key on their keyboard, the key pressed information is stored in the event parameter, it then sets the key to true in *keysDown*. Now we need a similar function that executes when a key is released:
+```javascript
+addEventListener("keyup", function(event){
+  delete keysDown[event.keyCode];
+});
+```
+It removes the entry of the released key from *keysDown*.
+
+---
+
+To detect and act upon keys that are pressed we need to create an input function that checks whether certain keys are pressed.
+```javascript
+function input(){
+  if(65 in keysDown){
+    player.x -= 3;
+  }
+  
+  if(68 in keysDown){
+    player.x += 3;
+  }
+}
+```
