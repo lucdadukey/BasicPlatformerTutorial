@@ -164,3 +164,24 @@ window.onload = function(){
   main();
 }
 ```
+Now all we need to do is draw the level!\
+In the draw function we need to loop through each of the level data lines and on each line we need to loop through each character, and if the character is a 1 then we need to draw a square at the position on canvas relative to the character's position. Also before the looping we need to define a new colour for walls!
+```javascript
+function draw(){
+  c.fillStyle = "red";
+  c.fillRect(player.x, player.y, player.width, player.height);
+  c.fillStyle = "black";
+  for (let row = 0; row < currentLevel.length; row++) {
+    for (let col = 0; col < currentLevel[0].length; col++) {
+      if (currentLevel[row][col] === "1") {
+        c.fillRect(col * 32, row * 32, 32, 32);
+      }
+    }
+  }
+}
+```
+Here we are using that **fillRect** function again, but instead of the player we are drawing each wall tile.\
+If you now run the code you should see squares that match what is written in the level variable.
+
+---
+## Handling User Input
