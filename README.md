@@ -218,3 +218,12 @@ function input(){
   }
 }
 ```
+In Javascript keys are represented numerically, in this example 65 is the number for the "A" key and 68 is the number for the "D" key, if you wish to find out the keycodes for other keys you can use [this website](https://keycode.info/).\
+In main you need to call this function so that input is checked every time main is executed. If you run the code you should see that when you press "A" or "D" the player moves horizontally, but you may also notice that the red square's "previous states" are still visible, to fix this write the following line at the top of the draw function:
+```javascript
+c.clearRect(0, 0, canvas.width, canvas.height);
+```
+
+---
+## Horizontal Collisions
+When moving the red square you will notice that 
