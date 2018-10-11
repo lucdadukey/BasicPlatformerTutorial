@@ -226,4 +226,41 @@ c.clearRect(0, 0, canvas.width, canvas.height);
 
 ---
 ## Horizontal Collisions
-When moving the red square you will notice that 
+When moving the red square you will notice that it passes straight through walls, this is because we haven't defined any collisions yet! But before we do collisions we need to create a function called getTile that gets the tile at a certain X and Y value:
+```javascript
+function getTile(x,y){
+  return(currentLevel[Math.floor(y / 32)][Math.floor(x / 32)]);
+}
+```
+To start collisions we need to define another player attribute called *speed*, this will determine how fast the player can move horizontally:
+```javascript
+const player = {
+  x: 256,
+  y: 256,
+  width: 32,
+  height: 32,
+  speed: 3
+}
+```
+Now move back to the input function and add two if statements around the updating of the player.x value, and update the previous code to add player.speed instead of 3:
+```javascript
+function input(){
+  if(65 in keysDown){
+    if (getTile((player.x - player.speed) + 1, player.y + 16) !== "1") {
+      player.x -= 3;
+    }
+  }
+  
+  if(68 in keysDown){
+    if (getTile(((player.x + player.width) + player.speed) - 1, player.y + 16) !== "1") {
+      player.x += 3;
+    }
+  }
+}
+```
+This checks whether the tile, when the player will move by player.speed, at the player's location is a wall or air, if it is air then the player is allowed to move in the direction, else do nothing.\
+If you now run the code, the red square should stop whenever it hits a wall.
+
+---
+## Gravity + Jumping
+This section will involve a little bit of physics, if you are unaware of how gravity and jumping works you can look at [this website](https://www.khanacademy.org/science/physics/work-and-energy/work-and-energy-tutorial/a/what-is-gravitational-potential-energy)
