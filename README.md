@@ -376,4 +376,4 @@ And now... if you run the code you should be able to jump!
 Thankyou for taking the time to read through this tutorial!\
 If you enjoyed this tutorial please give me an **upvote**!
 
-- lucdadukey
+by lucdadukey
