@@ -262,7 +262,7 @@ This checks whether the tile, when the player will move by player.speed, at the 
 If you now run the code, the red square should stop whenever it hits a wall.
 
 ---
-## Gravity + Jumping
+## Gravity
 This section will involve a little bit of physics, if you are unaware of how gravity and jumping works you can look at [this website](https://www.khanacademy.org/science/physics/work-and-energy/work-and-energy-tutorial/a/what-is-gravitational-potential-energy), but note that this knowledge isn't required to follow along the next section (it just clarifies things).
 
 Firstly we need to update the player object with three attributes required for calculating Gravitational Potential Energy, they are:
@@ -303,4 +303,77 @@ function gravity(obj){
   obj.gpe = calcGPE(obj);
 }
 ```
-Now add a call to gravity in the main function and pass ```player``` to it. Now if you run the code you should see that the red square now falls off the screen in a 
+Now add a call to gravity in the main function and pass ```player``` to it. Now if you run the code you should see that the red square now falls off the screen in a realistic manner.\
+
+---
+## Vertical Collisions
+
+When our redsquare falls, it goes straight through the walls/floors, to fix this we need to add some more code to the gravity function. Firstly we will check for downwards collisions (landing on the floor), to do this we need to utilise the check squares function to see if the tile at the player's feet is a wall, if yes then we need to set the player's Y Kinetic Energy to 0 and move the player up until it looks seamless with the floor. Also as a preventitive measure against future bugs we will need to check that the player is actually falling (Y Kinetic Energy is less than 0).
+
+```javascript
+// Place Below Previous Code Written
+if (getTile(obj.x + 32, (obj.y + 32)) !== "0" || getTile(obj.x, (obj.y + 32)) !== "0") {
+      if (obj.yke <= 0){
+        obj.yke = 0;
+        obj.y -= (obj.y % 32);
+      }
+    }
+```
+
+Now we need to do the same for upwards collisions, and also we should only check one vertical collision if the other is false.
+
+```javascript
+if (getTile(obj.x, obj.y) !== "0" || getTile(obj.x + 32, obj.y) !== "0") {
+    if (obj.yke >= 0){
+    obj.yke = -0.5;
+    obj.y += 1;
+    }
+}
+```
+
+This does almost the same thing except it sets the Y Kinetic Energy to a small negative number so that it doesn't get stuck on the wall above.\
+Your gravity function should now look like this:
+```javascript
+function gravity(obj) {
+  obj.y -= obj.yke;
+  obj.yke -= obj.gpe;
+  obj.gpe = calcGPE(obj);
+
+  if (getTile(obj.x, obj.y) !== "0" || getTile(obj.x + 32, obj.y) !== "0") {
+    if (obj.yke >= 0){
+    obj.yke = -0.5;
+    obj.y += 1;
+    }
+  } else {
+    if (getTile(obj.x + 32, (obj.y + 32)) !== "0" || getTile(obj.x, (obj.y + 32)) !== "0") {
+      if (obj.yke <= 0){
+        obj.yke = 0;
+        obj.y -= (obj.y % 32);
+      }
+    }
+  }
+}
+```
+
+On running the code you can see that the red square stops when it hits a wall!
+
+---
+## Jumping
+Congratulations if you made it this far (this tutorial is very long...), this will be the final section before the basic platformer is complete! The final thing that we need to add is jumping. If we just move the player's Y value by a certain amount the jumping will look very unnatural, so instead we will increase the player's Y Kinetic Energy which gives it a nice realistic looking jump. The keycode for the "W" key (the jump key) is 87, so in the input function add a check for if 87 is in keysDown and if so increase the player's Y Kinetic Energy by however much you desire (5-8 is generally good), but to dissallow the player to jump when directly below a wall we need to add a check to see if they are (and dissallow jumping).
+
+```javascript
+if (87 in keysDown && player.yke === 0) {
+    if (getTile(player.x,player.y - 1) !== "1" && getTile(player.x + 32,player.y - 1) !== "1"){
+    player.yke += 8;
+    }
+}
+```
+This also checks whether the player's Y Kinetic Energy is 0 (is on floor) to prevent mid-air jumping.\
+And now... if you run the code you should be able to jump!
+
+---
+## Finished
+Thankyou for taking the time to read through this tutorial!\
+If you enjoyed this tutorial please give me an **upvote**!
+
+- lucdadukey
