@@ -4,7 +4,7 @@
 **The Code:** https://repl.it/@LucHutton/Basic-Platformer
 
 ## Prequisities And Advice:
-For this tutorial you should already have a basic understanding of programming (preferrably in Javascript) as **I will not be explaining basic Javascript concepts in this tutorial.** If you wish to learn some/more Javascript I reccommend you visit: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+For this tutorial you should already have a basic understanding of programming (preferrably in Javascript) as **I will not be explaining basic Javascript concepts in this tutorial.** If you wish to learn some/more Javascript I recommend you visit: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 ## Setup:
 It is best if you follow along using a **HTML + CSS + JS REPL**, as when created the REPL will already have all the boiler plate stuff, but also because you will be able to see the result straight away on the same screen (when you run the code).
@@ -308,7 +308,7 @@ Now add a call to gravity in the main function and pass ```player``` to it. Now 
 ---
 ## Vertical Collisions
 
-When our redsquare falls, it goes straight through the walls/floors, to fix this we need to add some more code to the gravity function. Firstly we will check for downwards collisions (landing on the floor), to do this we need to utilise the check squares function to see if the tile at the player's feet is a wall, if yes then we need to set the player's Y Kinetic Energy to 0 and move the player up until it looks seamless with the floor. Also as a preventitive measure against future bugs we will need to check that the player is actually falling (Y Kinetic Energy is less than 0).
+When our redsquare falls, it goes straight through the walls/floors, to fix this we need to add some more code to the gravity function. Firstly we will check for downwards collisions (landing on the floor), to do this we need to utilise the check squares function to see if the tile at the player's feet is a wall, if yes then we need to set the player's Y Kinetic Energy to 0 and move the player up until it looks seamless with the floor. Also as a preventative measure against future bugs we will need to check that the player is actually falling (Y Kinetic Energy is less than 0).
 
 ```javascript
 // Place Below Previous Code Written
@@ -359,7 +359,7 @@ On running the code you can see that the red square stops when it hits a wall!
 
 ---
 ## Jumping
-Congratulations if you made it this far (this tutorial is very long...), this will be the final section before the basic platformer is complete! The final thing that we need to add is jumping. If we just move the player's Y value by a certain amount the jumping will look very unnatural, so instead we will increase the player's Y Kinetic Energy which gives it a nice realistic looking jump. The keycode for the "W" key (the jump key) is 87, so in the input function add a check for if 87 is in keysDown and if so increase the player's Y Kinetic Energy by however much you desire (5-8 is generally good), but to dissallow the player to jump when directly below a wall we need to add a check to see if they are (and dissallow jumping).
+Congratulations if you made it this far (this tutorial is very long...), this will be the final section before the basic platformer is complete! The final thing that we need to add is jumping. If we just move the player's Y value by a certain amount the jumping will look very unnatural, so instead we will increase the player's Y Kinetic Energy which gives it a nice realistic looking jump. The keycode for the "W" key (the jump key) is 87, so in the input function add a check for if 87 is in keysDown and if so increase the player's Y Kinetic Energy by however much you desire (5-8 is generally good), but to disallow the player to jump when directly below a wall we need to add a check to see if they are (and disallow jumping).
 
 ```javascript
 if (87 in keysDown && player.yke === 0) {
@@ -373,7 +373,7 @@ And now... if you run the code you should be able to jump!
 
 ---
 ## Finished
-Thankyou for taking the time to read through this tutorial!\
+Thank you for taking the time to read through this tutorial!\
 If you enjoyed this tutorial please give me an **upvote**!
 
 by lucdadukey
