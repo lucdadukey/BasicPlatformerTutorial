@@ -295,3 +295,12 @@ Now that that is out of the way we can create a function called **gravity** that
 1. Takes yke away from y
 2. Takes GPE away from yke
 3. Recalculates GPE
+
+```javascript
+function gravity(obj){
+  obj.y -= obj.yke;
+  obj.yke -= obj.gpe;
+  obj.gpe = calcGPE(obj);
+}
+```
+Now add a call to gravity in the main function and pass ```player``` to it. Now if you run the code you should see that the red square now falls off the screen in a 
