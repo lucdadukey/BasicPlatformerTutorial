@@ -263,4 +263,35 @@ If you now run the code, the red square should stop whenever it hits a wall.
 
 ---
 ## Gravity + Jumping
-This section will involve a little bit of physics, if you are unaware of how gravity and jumping works you can look at [this website](https://www.khanacademy.org/science/physics/work-and-energy/work-and-energy-tutorial/a/what-is-gravitational-potential-energy)
+This section will involve a little bit of physics, if you are unaware of how gravity and jumping works you can look at [this website](https://www.khanacademy.org/science/physics/work-and-energy/work-and-energy-tutorial/a/what-is-gravitational-potential-energy), but note that this knowledge isn't required to follow along the next section (it just clarifies things).
+
+Firstly we need to update the player object with three attributes required for calculating Gravitational Potential Energy, they are:
++ Mass (mass)
++ Kinetic Energy On The Y-Axis (yke)
++ Gravitational Potential Energy (gpe)
+
+```javascript
+const player = {
+  x: 256,
+  y: 256,
+  width: 32,
+  height: 32,
+  speed: 3,
+  mass: 64,
+  yke: 0,
+  gpe: 0
+}
+```
+
+Now we need to create a function to update the player's Y position, the player's Y Kinetic Energy and the player's GPE, but first we will create a function that takes the player as a parameter and calculates the GPE of it. GPE = mass * 9.8 * height. As we will be working in pixels instead of meters we will need to divide the Gravitational Field Strength (9.8) by a million so it scales correctly, and as (0,0) on canvas is the top left we need to take the player's Y value from the height of the canvas (512 in my case), and finally so the GPE doesn't increase so quickly per pixel we will divide the player's 'height' by 32.
+
+```javascript
+function calcGPE(obj) {
+  return obj.mass * (9.8 / 1000000) * ((canvas.height - obj.height) - (obj.y / 32));
+}
+```
+
+Now that that is out of the way we can create a function called **gravity** that takes the player as a parameter and:
+1. Takes yke away from y
+2. Takes GPE away from yke
+3. Recalculates GPE
